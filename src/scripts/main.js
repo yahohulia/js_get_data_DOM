@@ -1,24 +1,23 @@
 'use strict';
 
 let sum = 0;
-let length = 0;
+let validCount = 0;
 
-const populations = document.querySelectorAll('span');
+const populations = document.querySelectorAll('span.population');
 
 for (let i = 0; i < populations.length; i++) {
-  const chunck = populations[i].innerText.split(',');
-  const number = chunck.join('');
+  const number = populations[i].innerText.replace(/[^ 0-9.-]/g, '');
 
-  if (typeof +number === 'number' && !Number.isNaN(+number)) {
+  if (!Number.isNaN(+number)) {
     sum += +number;
-    length++;
+    validCount++;
   }
 }
 
-const avarage = Math.round(sum / length);
+const average = Math.round(sum / validCount);
 
-document.querySelectorAll('span.total-population')[0].innerText =
+document.querySelector('.total-population').innerText =
   sum.toLocaleString('en-US');
 
-document.querySelectorAll('span.average-population')[0].innerText =
-  avarage.toLocaleString('en-US');
+document.querySelector('.average-population').innerText =
+  average.toLocaleString('en-US');
